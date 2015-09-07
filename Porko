@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <string.h>
+int main()
+{
+int qtd_ptl[10],prateleira [10], qtd_pdt[6],i=0, x=0,codigo=0, qtd=0,final=0,produtos[6];
+char esc[1];
+float valor_ptl[10],tot_pcr[6],total=0,pc_pdt[6];
+prateleira[9]=0;
+pc_pdt[1]=0.90;
+pc_pdt[2]=1.90;
+pc_pdt[3]=1.90;
+pc_pdt[4]=2.30;
+pc_pdt[5]=3.98;
+pc_pdt[6]=91.20;
+produtos[1]=1;
+produtos[2]=2;
+produtos[3]=3;
+produtos[4]=4;
+produtos[5]=5;
+produtos[6]=6;
+	do
+	{
+
+	//primeira fase - carregar o estoque
+	do
+	{
+	for (i=0;i<10;i++)
+	{
+	system ("cls");
+	printf  ("Digite o codigo do produto que sera colocado na prateleira (%d)\n\n1-Areia\n2-Cano\n3-Caibro\n4-Pedra\n5-Cimento\n6-Tinta\n\nEscolha:",i);
+	scanf ("%d",&codigo);
+		if (codigo > 0 && codigo < 7) 
+	 	{
+	 		printf ("\n\nInforme a quantidade que deseja estocar");
+			scanf ("%d",&qtd);
+			if (qtd < 1000 && qtd > 0)
+			{
+				prateleira[i]=(codigo*1000)+qtd;
+			}
+			else
+	 		{
+			printf ("Digite um valor valido...\n");
+			getch ();
+			i=i-1;
+			}
+		}
+		else
+	 	{
+		printf ("Digite um valor valido...\n");
+		getch ();
+		i=i-1;
+		}
+		if (i==9)
+		final=1;
+	}
+	printf ("Deseja alterar algo, ou deseja gerar o relatorio do estoque?\n\n(S)im\n(N)ao\n\nEscolha:");
+	gets (esc);
+	}while (prateleira[9]>0 && final==0);
+	
+	//segunda fase - relatorio
+	//segunda fase, parte 1 - contas//usar mod % e div /
+	
+	for (i=0;i<10;i++)
+	{
+		for (x=0;x<6;x++) // X indica o codigo do produto
+		{
+			qtd=prateleira[i]%1000; //Quantidade de produto
+			codigo=(prateleira[i]-qtd)/1000;
+			if (codigo == produtos[x])  // comparo com a tabela de codigos
+			{
+			qtd_pdt[x]=qtd;
+			tot_pcr[x]=qtd*pc_pdt[x];
+			total=total+(pc_pdt[x]*qtd);
+			}
+		}
+	}
+
+	//segunda fase, parte 2 - Impreção do relatório(qtd_pdt[i]) e (tot_pç[i])
+	printf ("\tQuantidade:\tValor total em produtos:");
+	// Uso pora descobrir qual tipo de produto esta estocado na prateleira no indice [i]
+	printf ("\nAreia:\t\t%d\t\t%f",qtd_pdt[1],tot_pcr[1]);
+	printf ("\nCano",qtd_pdt[2],tot_pcr[2]);
+	printf ("\nCaibro",qtd_pdt[3],tot_pcr[3]);
+	printf ("\nPedra",qtd_pdt[4],tot_pcr[4]);
+	printf ("\nCimento",qtd_pdt[5],tot_pcr[5]);
+	printf ("\nTinta",qtd_pdt[6],tot_pcr[6]);
+	printf ("\n\nPreço total do estoque: %f",total);
+	
+	}while (final==0);
+}
