@@ -4,9 +4,9 @@
 #include <string.h>
 int main()
 {
-int qtd_ptl[10],prateleira [10], qtd_pdt[6],i=0, x=0,codigo=0, qtd=0,final=0,produtos[6];
-char esc[1];
+int qtd_ptl[10],prateleira [10], qtd_pdt[6],i=0, x=0,codigo=0, qtd=0,final=0,Areia=0,Cano=0,Caibro=0,Pedra=0,Cimento=0,Tinta=0;
 float valor_ptl[10],tot_pcr[6],total=0,pc_pdt[6];
+float Areia_tot=0,Cano_tot=0,Caibro_tot=0,Pedra_tot=0,Cimento_tot=0,Tinta_tot=0;
 prateleira[9]=0;
 pc_pdt[1]=0.90;
 pc_pdt[2]=1.90;
@@ -14,12 +14,6 @@ pc_pdt[3]=1.90;
 pc_pdt[4]=2.30;
 pc_pdt[5]=3.98;
 pc_pdt[6]=91.20;
-produtos[1]=1;
-produtos[2]=2;
-produtos[3]=3;
-produtos[4]=4;
-produtos[5]=5;
-produtos[6]=6;
 	do
 	{
 
@@ -33,7 +27,7 @@ produtos[6]=6;
 	scanf ("%d",&codigo);
 		if (codigo > 0 && codigo < 7) 
 	 	{
-	 		printf ("\n\nInforme a quantidade que deseja estocar");
+	 		printf ("\n\nInforme a quantidade que deseja estocar:");
 			scanf ("%d",&qtd);
 			if (qtd < 1000 && qtd > 0)
 			{
@@ -55,38 +49,55 @@ produtos[6]=6;
 		if (i==9)
 		final=1;
 	}
-	printf ("Deseja alterar algo, ou deseja gerar o relatorio do estoque?\n\n(S)im\n(N)ao\n\nEscolha:");
-	gets (esc);
-	}while (prateleira[9]>0 && final==0);
+	}while (prateleira[9]==0 && final==0);
 	
 	//segunda fase - relatorio
 	//segunda fase, parte 1 - contas//usar mod % e div /
 	
 	for (i=0;i<10;i++)
 	{
-		for (x=0;x<6;x++) // X indica o codigo do produto
-		{
-			qtd=prateleira[i]%1000; //Quantidade de produto
-			codigo=(prateleira[i]-qtd)/1000;
-			if (codigo == produtos[x])  // comparo com a tabela de codigos
+			qtd=prateleira[i]%1000; //retiro a Quantidade de produto da prateleira
+			codigo=(prateleira[i]-qtd)/1000; // Para assim retornar ao codigo do produto
+			if (codigo == 1)  // comparo com a tabela de codigos
 			{
-			qtd_pdt[x]=qtd;
-			tot_pcr[x]=qtd*pc_pdt[x];
-			total=total+(pc_pdt[x]*qtd);
+			Areia=qtd+Areia;
+			Areia_tot=Areia*pc_pdt[codigo];
 			}
-		}
+			if (codigo == 2)  // comparo com a tabela de codigos
+			{
+			Cano=Cano+qtd;
+			Cano_tot=Cano*pc_pdt[codigo];
+			}
+			if (codigo == 3)  // comparo com a tabela de codigos
+			{
+			Caibro=Caibro+qtd;
+			Caibro_tot=Caibro*pc_pdt[codigo];
+			}
+			if (codigo == 4)  // comparo com a tabela de codigos
+			{
+			Pedra=Pedra+qtd;
+			Pedra_tot=Pedra*pc_pdt[codigo];
+			}
+			if (codigo == 5)  // comparo com a tabela de codigos
+			{
+			Cimento=Cimento+qtd;
+			Cimento_tot=Cimento*pc_pdt[codigo];
+			}
+			if (codigo == 6)  // comparo com a tabela de codigos
+			{
+			Tinta=Tinta+qtd;
+			Tinta_tot=Tinta*pc_pdt[codigo];
+			}
+	system ("cls");
+printf ("\n\t\tQuantidade:\t\tTotal:\n\nAreia:\t\t%d\t\t%f\nCano:\t\t%d\t\t%f\nCaibro:\t\t%d\t\t%f\nPedra:\t\t%d\t\t%f\nCimento:\t%d\t\t%f\nTinta:\t\t%d\t\t%f",Areia,Areia_tot,Cano,Cano_tot,Caibro,Caibro_tot,Pedra,Pedra_tot,Cimento,Cimento_tot,Tinta,Tinta_tot);
+	getch();
+	system ("cls");
 	}
 
-	//segunda fase, parte 2 - Impreção do relatório(qtd_pdt[i]) e (tot_pç[i])
-	printf ("\tQuantidade:\tValor total em produtos:");
-	// Uso pora descobrir qual tipo de produto esta estocado na prateleira no indice [i]
-	printf ("\nAreia:\t\t%d\t\t%f",qtd_pdt[1],tot_pcr[1]);
-	printf ("\nCano",qtd_pdt[2],tot_pcr[2]);
-	printf ("\nCaibro",qtd_pdt[3],tot_pcr[3]);
-	printf ("\nPedra",qtd_pdt[4],tot_pcr[4]);
-	printf ("\nCimento",qtd_pdt[5],tot_pcr[5]);
-	printf ("\nTinta",qtd_pdt[6],tot_pcr[6]);
-	printf ("\n\nPreço total do estoque: %f",total);
+	//segunda fase, parte 2 - Impressão do relatório(qtd_pdt[i]) e (tot_pç[i])
+	printf ("\n\t\tQuantidade:\t\tTotal:\n\nAreia:\t\t%d\t\t%f\nCano:\t\t%d\t\t%f\nCaibro:\t\t%d\t\t%f\nPedra:\t\t%d\t\t%f\nCimento:\t%d\t\t%f\nTinta:\t\t%d\t\t%f",Areia,Areia_tot,Cano,Cano_tot,Caibro,Caibro_tot,Pedra,Pedra_tot,Cimento,Cimento_tot,Tinta,Tinta_tot);
+	total=Areia_tot+Cano_tot+Caibro_tot+Pedra_tot+Cimento_tot+Tinta_tot;
+	printf ("\n\nTotal geral: %f",total);
 	
 	}while (final==0);
 }
