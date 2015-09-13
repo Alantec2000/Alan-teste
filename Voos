@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <locale.h>
+// AC = (A)vião ; (C)adeira
+int main()
+{
+	setlocale (LC_ALL,"Portuguese");
+	int c=0,coluna=0,linha=0,l=0;// COLUNA E LINHA SÃO VARIAVEIS DINÂMICAS;
+	// Fase 1 - Decidir quantos voos e quantos acentos cada avião possui;
+	do
+	{
+	system ("cls");
+	printf ("||Avião||");
+	printf ("\n\nPergunta:\n\nQuantos aviões você possui?(Só pode ter 10):");//Cada avião sera uma coluna;
+	scanf ("%d",&c);
+	if (c<11)
+	{
+	printf ("\n\nPergunta:\n\nQuantos acentos cada avião possui?(Só pode ter 10):");//Cada linha sera um acento;
+	scanf ("%d",&l);
+	if (l<11&&l>5)
+	{
+	
+	int AC[c][l];
+	for (coluna=1;coluna<c;coluna++)
+	{
+		for (linha=1;linha<l;linha++)
+		{
+		AC[c][l]=0;
+		}
+	}
+	}
+	else
+	{
+	printf ("Seu avião não suporta este numero de cadeiras...");
+	getch();
+	}
+	}
+	else
+	{
+	if (l>11)
+	printf ("Seu avião não suporta este numero de cadeiras...");
+	if (l<5)
+	printf ("Número de acentos abaixo da demanda minima...");
+	getch();
+	}
+	}while (c>11||l>11&&l<5);
+	//Fase 2 - Reserva de acentos para cada voo;
+	int escolha=0,reserva=0;
+	do
+	{
+	printf ("||Aviões - Reservas||");
+	printf ("\n\nBem - vindo, possuimos %d voo(s), cada um com %d cadeira(s). Deseja:\n\n0-Terminar programa\n1-Escolher um voo\n\nEscolha:",c,l);
+	scanf ("%d",&escolha);
+	switch (escolha)
+	{
+		case 1:
+		system ("cls");
+		printf ("\t\t\tVoo - 1");
+			for (linha=0;linha<l;linha++)
+			{
+			printf ("fileira %d\t\t",linha,AC[coluna][linha]);
+			if (l==10 && linha==5)
+			printf ("\n");
+			if (linha==l/2 && l!=10)
+			printf ("\n");
+			}
+		break;
+		default:
+		printf ("Opção inválida...");
+		getch();
+	}
+	
+	}while (escolha!=0);
+	
+}
