@@ -1,0 +1,656 @@
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <locale.h>
+
+int main()
+{
+	int indice[20],ind=0,i=0,cheio[20],encontrados=0,achei[20],tamnome=0, menu_principal=0, escolha=0, cadastrados=0,x=0;
+	char nome[20][50],nome_p[70],telefone[20][11],cep[20][9],bairro[20][20],endereco[20][70], esc[0],esc2[0];
+	char dados[10][10]={"Nome","Endereço","CEP","Telefone","Bairro"}, auxiliar[100];
+	for (ind=1;ind<21;ind++)
+	cheio[ind]=0;
+	setlocale (LC_ALL, "Portuguese");
+	while (menu_principal==0)
+	{
+		//linha zeradora de variaveis de laços grandes
+		escolha=0,x=0;
+		system ("cls");
+		printf("\t||Agenda||\n\n");
+		printf ("Número de pessoas cadastradas até o momento: %d/20 \n\n",cadastrados);
+		printf ("Escolha uma das opções abaixo:");
+		printf("\n\n1-Cadastro\n2-Consulta\n3-Alteração\n4-Exclusao\n5-Reorganização\n6-Relatório\n7-Sair\n\nEscolha:");
+		scanf ("%d",&escolha);
+		switch (escolha)
+		{
+			case 1:
+				do
+				{
+					do
+					{
+					escolha=0,x=0;
+					system("cls");
+					printf ("\t||Agenda - Cadastro||");
+					printf ("\n\nEscolha em qual índice deseja cadastrar (sua agenda suporta de 1 ate 20):");
+					fflush (stdin);
+					scanf("%d",&ind);
+					if (cheio[ind]==0)
+					{
+					printf ("Índice %d:",ind);
+					do
+					{
+						printf("\n\nNome:");
+						fflush(stdin);
+						gets (nome[ind]);
+						tamnome=strlen(nome[ind]);
+						if (tamnome>50 || tamnome==0)
+						{
+						if (tamnome>50)
+						printf ("Manera no tamanho desse nome ae...");
+						if (tamnome==0)
+						printf ("Cadê o nome...");
+						getch();
+						}
+					}while (tamnome>50||tamnome==0);
+					do
+					{
+						printf("\n\nEndereco:");
+						fflush(stdin);
+						gets (endereco[ind]);
+						tamnome=strlen(endereco[ind]);
+						if (tamnome>70||tamnome==0)
+						{
+						if (tamnome>70)
+						printf ("Manera no tamanho desse endereço ae...");
+						if (tamnome==0)
+						printf ("Cadê o nome do endereço...");
+						getch();
+						}
+					}while (tamnome>70||tamnome==0);
+					do
+					{
+						printf("\n\nBairro:");
+						fflush(stdin);
+						gets (bairro[ind]);
+						tamnome=strlen(bairro[ind]);
+						if (tamnome>20||tamnome==0)
+						{
+						if (tamnome>20)
+						printf ("Manera no tamanho desse bairro ae...");
+						if (tamnome==0)
+						printf ("Cadê o nome do bairro...");
+						getch();
+						}
+					}while (tamnome>20||tamnome==0);
+					do
+					{
+						printf("\n\nTelefone:");
+						fflush(stdin);
+						gets (telefone[ind]);
+						tamnome=strlen(telefone[ind]);
+						if (tamnome>11||tamnome==0)
+						{
+						if (tamnome>11)
+						printf ("Manera no tamanho desse telefone ae...");
+						if (telefone[0][ind]='\0')
+						printf ("Cade o número de telefone, digita ae...");
+						getch();
+						}
+					}while (tamnome>11||tamnome==0);
+					do
+					{
+						printf("\n\nCEP:");
+						fflush(stdin);
+						gets (cep[ind]);
+						tamnome=strlen(cep[ind]);
+						if (tamnome>20||tamnome==0)
+						{
+						if (tamnome>20)
+						printf ("CEP grande demais...");
+						if (tamnome==0)
+						printf ("Cade o número do CEP...");
+						getch();
+						}
+					}while (tamnome>20||tamnome==0);
+					//Confirmação de dados
+					do
+					{
+					system ("cls");
+					printf ("\t||Confirme os dados||\n\n");
+					printf ("Índice: %d\n\n",ind);	
+					printf ("Nome:%s\n\n",nome[ind]);
+					printf ("Endereço:%s\n\n",endereco[ind]);
+					printf ("Bairro %s",bairro[ind]);
+					printf ("\tCEP:%s\n\n",cep[ind]);
+					printf ("Telefone:%s\n\n",telefone[ind]);
+					printf ("______________________________________________________________\n\n");
+					getch();
+					printf ("Os dados estão corretos?\n\n(S)im\n(N)ão\n\nEscolha:");
+					fflush(stdin);
+					gets (esc);
+					
+					if (stricmp(esc,"S")==0)
+					{
+						printf ("\n\nDeseja cadastrar mais alguem?\n\n(S)im\n(N)ão\n\nEscolha:");
+						fflush(stdin);
+						gets (esc);
+						if (stricmp(esc,"S")==0)
+						{
+							indice[ind]=ind,cheio[ind]=1,escolha=0,x=1,cadastrados++;
+						}
+						else
+						{
+							if (stricmp(esc,"N")==0)
+							{
+								indice[ind]=ind,cheio[ind]=1,escolha=1,x=1,cadastrados++;
+							}
+							else
+							{
+							printf ("Opção inválida...");
+							getch();	
+							x=0;
+							}
+						}
+					}
+					else 
+					{
+					if (stricmp(esc,"N")==0)// OS DADOS NÃO ESTÃO CORRETOS E SERÃO APAGADOS
+					{
+					
+						printf ("\n\nDeseja voltar ao menu principal?\n\n(S)im\n(N)ao\n\nEscolha:");
+						fflush(stdin);
+						gets (esc);
+						if (stricmp(esc,"S")==0)
+						{
+						cheio[ind]=0,escolha=1,x=1;
+						}
+						else
+						{
+							if (stricmp(esc,"N")==0)
+							{
+							cheio[ind]=0,escolha=1,x=1;	
+							}
+							else
+							{
+							printf ("Opção inválida...");
+							getch();	
+							x=0;
+							}
+						}
+						
+					}
+						else
+						{
+						printf ("Opção inválida...");
+						getch();	
+						x=0;
+						}
+					}
+					}while (x==0);
+					}
+					else
+					{
+					printf ("índice cheio, vá ao menu exclusão ou no menu de alteração para liberá-lo para cadastro...");
+					getch();
+					}
+					if (ind<1 || ind>20)
+					{
+					printf ("Opção inválida...");
+					getch();
+					}	
+					}while (ind<1 || ind>20);
+				}while (escolha==0);
+			break;
+			case 2:
+			escolha=0,x=0;
+			do
+			{
+				do
+				{
+				system ("cls");
+				printf ("\t||Agenda - Consulta||");
+				printf ("\n\nDeseja consultar por?:");
+				printf ("\n\n1-Nome\n2-Endereco\n3-CEP\n4-Telefone\n5-Bairro\n6-voltar ao menu\n\nEscolha:");
+				scanf ("%d",&i);
+				if (i==1)
+				printf ("\n\nDigite o nome que sera pesquisado:");
+				if (i==2)
+				printf ("\n\nDigite o endereco que sera pesquisado:");
+				if (i==3)
+				printf ("\n\nDigite os 5 primeiros números do CEP que sera pesquisado:");
+				if (i==4)
+				printf ("\n\nDigite os 4 primeiros números do telefone que sera pesquisado:");
+				if (i==5)
+				printf ("\n\nDigite o bairro que sera pesquisado:");
+				if (i==6)
+				escolha=1;
+				if (i<1||i>6)
+				{
+				printf ("Opcao invalida...");
+				getch();	
+				}
+				if (i>0&&i<6&&i!=6)
+				{
+				fflush(stdin);
+				gets(nome_p);
+				tamnome=strlen(nome_p);
+				}
+				if (tamnome>70)
+				{
+				printf ("Digite um nome com tamanho valido...");
+				getch();
+				}
+				}while (i<1||i>6);
+				if (i!=6)
+				{
+				
+				for (ind=1,encontrados=0;ind<20;ind++)//PESQUISA
+				{
+					if (i==1)//NOME
+					{
+						if (strnicmp (nome_p,nome[ind],tamnome)==0)
+							{
+							encontrados++;
+							achei[ind]=indice[ind];
+							}
+						else
+						{
+						achei[ind]=999;
+						}
+					}
+					if (i==2)//ENDEREÇO
+					{
+						if (strnicmp (nome_p,endereco[ind],tamnome)==0)
+							{
+							encontrados++;
+							achei[ind]=indice[ind];
+							}
+						else
+						{
+						achei[ind]=999;
+						}
+					}
+					if (i==3)//CEP
+					{
+						if (strnicmp (nome_p,cep[ind],tamnome)==0)
+							{
+							encontrados++;
+							achei[ind]=indice[ind];
+							}
+						else
+						{
+						achei[ind]=999;
+						}
+					}
+					if (i==4)//TELEFONE
+					{
+						if (strnicmp (nome_p,telefone[ind],4)==0)
+							{
+							encontrados++;
+							achei[ind]=indice[ind];
+							}
+						else
+						{
+						achei[ind]=999;
+						}
+					}
+					if (i==5)//BAIRRO
+					{
+						if (strnicmp (nome_p,nome[ind],4)==0)
+							{
+							encontrados++;
+							achei[ind]=indice[ind];
+							}
+						else
+						{
+						achei[ind]=999;
+						}
+					}
+				}
+				}
+					
+				
+					if (i!=6)
+					{
+				
+					if (encontrados > 0)
+					{
+						do
+						{
+						for (ind=1;ind<20;ind++)
+						{
+							if (achei[ind]!=999)
+							{
+								system("cls");
+								printf ("\t||Dado(s) encontrado(s)||\n\n");
+								printf ("Indice: %d\n\n",ind);	
+								printf ("Nome:%s\n\n",nome[ind]);
+								printf ("Endereco:%s\n\n",endereco[ind]);
+								printf ("bairro %s",bairro[ind]);
+								printf ("\tCEP:%s\n\n",cep[ind]);
+								printf ("Telefone:%s\n\n",telefone[ind]);
+								printf ("______________________________________________________________\n\n");
+								system ("pause");	
+							}
+						
+						}
+						printf ("Deseja pesquisar novamente:\n\n(S)im\n(N)ao\n\nEscolha:");
+						fflush(stdin);
+						gets(esc);
+						if (stricmp(esc,"S")==0)
+						{
+							x=1,escolha=0;
+						}
+						else
+						{
+							if (stricmp(esc,"N")==0)
+							{
+								x=1,escolha=1;
+							}
+							else
+							{
+							printf ("Opção invalida...");
+							getch();
+							x=0;
+							}
+						}
+						}while (x==0);
+					}
+					
+						if (encontrados==0)
+							{
+								do
+								{
+								system("cls");
+								if (i==1)
+								printf ("Desculpe, nao ha ninguem cadastrado com esse nome!!");
+								if (i==2)
+								printf ("Desculpe, nao ha ninguem cadastrado com esse endereco!!");
+								if (i==3)
+								printf ("Desculpe, nao ha ninguem cadastrado com esse numero de cep!!");
+								if (i==4)
+								printf ("Desculpe, nao ha ninguem cadastrado com esse numero de telefone!!");
+								if (i==5)
+								printf ("Desculpe, nao ha ninguem cadastrado nesse bairro !!");
+								printf ("\n\nDeseja pesquisar novamente?\n\n(S)im\n(N)ao\n\nEscolha:");
+								fflush(stdin);
+								gets(esc);
+								if (stricmp(esc,"S")==0)
+								{
+								x=1,escolha=0;
+								}
+								else
+								{
+									if (stricmp(esc,"N")==0)
+									{
+									x=1,escolha=1;
+									}
+									else
+									{
+									printf ("Opção invalida...");
+									getch();
+									x=0;
+									}
+									}
+							
+								}while (x==0);
+							}
+					}
+			}while (escolha==0);
+			break;
+			case 3:
+			escolha=0,x=0;
+			do
+			{
+			system ("cls");
+			printf ("\t||Agenda - Alteração||");
+			printf ("\n\nDeseja realizar qual das ações abaixo?:\n\n");
+				if (cadastrados>0)
+				{
+				
+				printf ("\n\nAtualmente possuimos os seguintes índices para alteração:\n\n");
+				for (ind=0;ind<20;ind++)
+					{
+						if (cheio[ind]==1)
+						{
+							printf ("______________________________________________________________\n\n");
+							printf ("Índice %d\n\n",ind);
+							printf ("Nome:%s\n\n",nome[ind]);
+							printf ("Endereço:%s\n\n",endereco[ind]);
+							printf ("Bairro %s",bairro[ind]);
+							printf ("\tCEP:%s\n\n",cep[ind]);
+							printf ("Telefone:%s\n\n",telefone[ind]);
+							getch();
+						}
+					}
+					printf ("______________________________________________________________\n\n");
+					printf ("Qual destes índices você deseja alterar?:");
+					scanf ("%d",&ind);
+					if (cheio[ind]==0)
+					{
+						printf ("\n\nDesculpe, mas no momento não há ninguem cadastrado neste índice.");
+						getch();
+					}
+					else
+					{
+							do
+							{
+								system ("cls");
+								printf ("\t||Agenda - Alteração||\n\n");
+								printf ("\n\n______________________________________________________________\n\n");
+								printf ("Índice %d\n\n",ind);
+								printf ("Nome:%s\n\n",nome[ind]);
+								printf ("Endereço:%s\n\n",endereco[ind]);
+								printf ("Bairro %s",bairro[ind]);
+								printf ("\tCEP:%s\n\n",cep[ind]);
+								printf ("Telefone:%s\n\n",telefone[ind]);
+								printf ("______________________________________________________________\n\n");
+								printf ("Qual dos dados você deseja alterar?");
+								printf ("\n\n1-Nome\n2-Endereco\n3-CEP\n4-Telefone\n5-Bairro\n6-voltar ao menu\n\nEscolha:");
+								scanf ("%d",&i);
+								if (i>0 || i<6)
+								{
+								system ("cls");
+								printf ("\t||Agenda - Alteração - %s||\n\n",dados[i-1]);
+								printf ("Digite o novo %s para alteração:",dados[i-1]);
+								fflush (stdin);
+								if (i==1)//NOME
+								{
+								do
+								{
+								strcpy (auxiliar,nome[ind]);
+								gets (nome[ind]);
+								tamnome=strlen(nome[ind]);
+								if (tamnome>50||tamnome==0)
+								{
+								printf ("Digite um tamanho de nome válido!!");
+								getch();
+								}
+								}while (tamnome>50 || tamnome<=0);
+								}
+								if (i==2)//ENDEREÇO
+								{
+								do
+								{
+								strcpy (auxiliar,endereco[ind]);
+								gets (endereco[ind]);
+								tamnome=strlen(endereco[ind]);
+								if (tamnome>70||tamnome==0)
+								{
+								printf ("Digite um tamanho de nome válido!!");
+								getch();
+								}
+								}while (tamnome>70 || tamnome<=0);
+								}
+								if (i==3)//CEP
+								{
+								do
+								{
+								strcpy (auxiliar,cep[ind]);
+								gets (cep[ind]);
+								tamnome=strlen(cep[ind]);
+								if (tamnome>9||tamnome==0)
+								{
+								printf ("Digite um tamanho de %s válido!!",dados[i-1]);
+								getch();
+								}
+								}while (tamnome>9 || tamnome<=0);
+								}
+								if (i==4)//TELEFONE
+								{
+								do
+								{
+								strcpy (telefone[ind],auxiliar);
+								gets (telefone[ind]);
+								tamnome=strlen(telefone[ind]);
+								if (tamnome>11||tamnome==0)
+								{
+								printf ("Digite um tamanho de %s válido!!",dados[i-1]);
+								getch();
+								}
+								}while (tamnome>11 || tamnome<=0);
+								}
+								if (i==5)//BAIRRO
+								{
+								do
+								{
+								strcpy (auxiliar,bairro[ind]);
+								gets (bairro[ind]);
+								tamnome=strlen(bairro[ind]);
+								if (tamnome>20||tamnome==0)
+								{
+								printf ("Digite um tamanho de %s válido!!",dados[i-1]);
+								getch();
+								}
+								}while (tamnome>70 || tamnome<=0);
+								}
+								}
+								else
+								{
+									if (!i>0 || !i<7)
+									{
+										printf ("Opção inválida...");
+										getch();	
+									}
+									if (i==6)
+									{
+									escolha=1;
+									}
+								}
+							}while (i<0 || i>6);
+								do
+								{
+								system ("cls");
+								printf ("\t||Agenda - Alteração - Confirmação||\n\n");
+								printf ("\n\n______________________________________________________________\n\n");
+								printf ("Índice %d\n\n",ind);
+								printf ("Nome:%s\n\n",nome[ind]);
+								printf ("Endereço:%s\n\n",endereco[ind]);
+								printf ("Bairro %s",bairro[ind]);
+								printf ("\tCEP:%s\n\n",cep[ind]);
+								printf ("Telefone:%s\n\n",telefone[ind]);
+								printf ("______________________________________________________________\n\n");
+								printf ("Os dados estão corretos?\n\n(S)im\n(N)ão - o %s sera devolvido aos dados do cadastro\n\nEscolha:",dados[i-1]);
+								fflush(stdin);
+								gets(esc);
+								if (stricmp (esc,"S")==0)
+								{
+									printf ("Deseja alterar mais algum dado?:\n\n(S)im\n(N)ão - Voltar ao menu principal\n\nEscolha:");
+									fflush(stdin);
+									gets(esc);
+									if (stricmp (esc,"S")==0)
+									{
+									}
+									else
+									{
+										if (stricmp (esc,"N")==0)
+										{
+									
+										}
+										else
+										{
+											
+										}	
+									}
+								}
+								else
+								{
+									if (stricmp (esc,"N")==0)
+									{
+									
+									}
+									else
+									{
+										
+									}
+								}
+								}while (x==0);
+							
+					}
+				}
+				if (cadastrados==0)
+				{
+					system ("cls");
+					printf ("Desculpe, mas parece que não há nenhum cadastro efetuado neste índice!\n\n");
+					printf ("Voltaremos ao menu principal...");
+					getch();
+					escolha=1;
+				}
+			}while (escolha==0);
+			break;
+			case 4:
+			break;
+			case 5:
+			break;
+			case 6:
+			break;
+			case 7:
+			break;
+			default:
+			printf ("Opcao invalida...");
+			getch();
+		}
+		
+	}
+}
+/*
+Agenda Eletronica - Requisitos
+
+Devera conter as seguintes opções no Menu Principal:
+Cadastro
+Consulta
+Alteração
+Exclusao
+Relatorio
+Fim
+
+Menu Principal:
+Utilizado para gerenciar os demais modulos, devera ter a validação de opcao invalida nas entradas
+Poderá ser criado com as opções Numericas ou Literais
+
+Cadastro:
+Utilizado para cadastrar em vetores os seguintes atributos
+Nome (Com no MAximo de 50 Caractreres)
+Endereco Completo (Com no MAximo de 70 Caractreres)
+Bairro (Com no MAximo de 20 Caractreres)
+CEP (Com no Maxímo de 9 caracteres)
+Telefone (COm no Máximo de 11 caracteres)
++++Devera ter a confirmação de entrada de cada registro com validação de opção invalida
+
+Consulta:
+Deverá consultar o Nome de alguem cadastrado, exibindo a mensagem de "Nao Existente" quando for o caso
+Deverá consultar por bairro exibindo NOmes e Telefones dos moradores do bairro
+Devera ter a confirmação de nova consulta com validação de opção invalida
+
+Alteração:
+Deverá permitir a alteração de qualquer um dos itens dado o nome do usuario
+Devera ter a confirmação de nova altereção com validação de opção invalida
+
+Exclusão:
+Deverá permitir Excluir um dos registros, fazendo o reorganização do indice do vetor
+Devera ter a confirmação de nova exclusao com validação de opção invalida
+
+Relatorio:
+Devera lista nomes e telefones em ordem alfabetica
+*/
